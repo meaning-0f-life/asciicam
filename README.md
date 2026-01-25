@@ -9,7 +9,7 @@ A live camera feed for your terminal with virtual camera streaming support.
 - **ASCII Conversion**: Converts frames to grayscale ASCII art.
 - **Terminal UI**: Built with [textual](https://textual.textualize.io/) for smooth display in the terminal.
 - **Copy to Clipboard**: Easily copy ASCII frames using [pyperclip](https://pypi.org/project/pyperclip/)
-- **Camera Selection**: Choose from available cameras in the system
+- **Camera Selection**: Cycle through available cameras by pressing 'c'
 - **Virtual Camera Streaming**: Stream ASCII art as a virtual video device named "ASCII Camera" that can be used in Zoom, OBS, and other video applications
 
 ## Virtual Camera Streaming
@@ -35,8 +35,9 @@ The virtual camera feature allows you to stream ASCII art as a video feed that c
    ```
 
 3. **Select a camera**:
-   - Choose a camera from the dropdown menu
-   - The application will automatically detect and use the selected camera
+   - The application will automatically open the first available camera
+   - Press `c` to cycle through all available cameras
+   - The camera name is displayed in the subtitle
 
 4. **Start the virtual stream**:
    - Click the "Start Virtual Stream" button in the UI
@@ -109,17 +110,19 @@ The binary is now under in the `dist` folder and called `main`.
 
 ### Basic Usage
 1. Run the application: `uv run main.py`
-2. Select a camera from the dropdown menu
-3. View the ASCII camera feed in your terminal
-4. Press `S` to toggle virtual camera streaming on/off
-5. Use the virtual camera "ASCII Camera" in Zoom, OBS, or other video applications
+2. The application will automatically open the first available camera
+3. Press `c` to cycle through all available cameras
+4. View the ASCII camera feed in your terminal
+5. Press `S` to toggle virtual camera streaming on/off
+6. Use the virtual camera "ASCII Camera" in Zoom, OBS, or other video applications
 
 ### Keyboard Shortcuts
 - `Q`: Quit the application
 - `S`: Toggle virtual camera stream on/off
+- `C`: Cycle through available cameras
 
 ### UI Controls
-- **Camera Selection**: Choose from available cameras in the system
+- **Camera Selection**: Cycle through available cameras by pressing 'c' (or use the dropdown menu if available)
 - **Copy ASCII**: Copy the current ASCII frame to clipboard
 - **Start Virtual Stream**: Start streaming ASCII as a virtual video device named "ASCII Camera"
 - **Stop Virtual Stream**: Stop the virtual camera stream
@@ -168,7 +171,7 @@ This happens when OBS Studio cannot access your real camera. To fix:
 3. Restart OBS Studio and asciicam
 
 ### Camera selection not working
-If you can't select a camera:
+If you can't change cameras:
 1. **Check available cameras**:
    ```bash
    python3 -c "from camera import list_available_cameras; print(list_available_cameras())"
@@ -181,6 +184,10 @@ If you can't select a camera:
 3. **Restart the application**:
    - Close asciicam completely
    - Restart it to refresh the camera list
+
+4. **Press 'c' to cycle**:
+   - The primary way to change cameras is by pressing the 'c' key
+   - This will cycle through all available cameras
 
 ### Performance issues
 - Reduce the ASCII width in [`camera.py`](camera.py:1) for better performance
