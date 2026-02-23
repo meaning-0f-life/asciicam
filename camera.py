@@ -231,9 +231,14 @@ class Camera:
         print(f"Camera {camera_index} opened: {width}x{height}")
         
         self.virtual_streamer = None
+        self.camera_lock = threading.Lock()
 
     def get_image(self):
-        ret, frame = self.camera.read()
+        with self.camera_lock:
+            ret, frame = self.camera.read()
+            if not ret:
+                raise Exception("Can't receive frame.")
+            return frame
         if not ret:
             raise Exception("Can't receive frame.")
         return frame
