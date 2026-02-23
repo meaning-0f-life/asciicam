@@ -114,7 +114,7 @@ class AsciiCamApp(App):
         elif event.button.id == "startstreambtn":
             try:
                 if self.camera:
-                    self.camera.start_virtual_stream(width=100, fps=15, camera_name="ASCII Camera")
+                    self.camera.start_virtual_stream(width=200, fps=15, camera_name="ASCII Camera")
                     self.streaming = True
                     self.sub_title = "Virtual stream 'ASCII Camera' started! Use in Zoom/other apps."
                 else:
@@ -188,7 +188,7 @@ class AsciiCamApp(App):
         else:
             try:
                 if self.camera:
-                    self.camera.start_virtual_stream(width=100, fps=15, camera_name="ASCII Camera")
+                    self.camera.start_virtual_stream(width=200, fps=15, camera_name="ASCII Camera")
                     self.streaming = True
                     self.sub_title = "Virtual stream 'ASCII Camera' started! Use in Zoom/other apps."
             except Exception as e:
