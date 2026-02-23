@@ -82,6 +82,7 @@ class VirtualCameraStreamer:
         self.stream_thread = None
         self.virtual_cam = None
         self.frame_count = 0
+        self._cached_font = None
         
     def _create_ascii_frame(self, ascii_art):
         """Convert ASCII art to an image frame."""
@@ -101,19 +102,20 @@ class VirtualCameraStreamer:
         img = Image.new('RGB', (img_width, img_height), color='black')
         draw = ImageDraw.Draw(img)
         
-        # Try to use a monospace font, fallback to default
-        try:
-            # On macOS, try to use a system monospace font
-            font = ImageFont.truetype("/System/Library/Fonts/Monaco.ttf", 10)
-        except:
-            try:
-                font = ImageFont.truetype("/System/Library/Fonts/Courier New.ttf", 10)
-            except:
+        # Use cached font if available, otherwise load and cache it
+        if self._cached_font is None:
+            # Try to use a monospace font, fallback to default
+            for font_path in ["/System/Library/Fonts/Monaco.ttf",
+                            "/System/Library/Fonts/Courier New.ttf",
+                            "/System/Library/Fonts/Courier.dfont"]:
                 try:
-                    font = ImageFont.truetype("/System/Library/Fonts/Courier.dfont", 10)
+                    self._cached_font = ImageFont.truetype(font_path, 10)
+                    break
                 except:
-                    # Fallback to default font
-                    font = ImageFont.load_default()
+                    continue
+            if self._cached_font is None:
+                self._cached_font = ImageFont.load_default()
+        font = self._cached_font
         
         # Draw ASCII text
         y = 0
@@ -194,7 +196,7 @@ class VirtualCameraStreamer:
                             print(f"Streaming... {frame_count} frames sent")
                     
                     # Small delay to control frame rate
-                    time.sleep(1.0 / self.fps)
+                    # time.sleep(1.0 / self.fps)
                     
                 except Exception as e:
                     print(f"Error in streaming loop: {e}")
