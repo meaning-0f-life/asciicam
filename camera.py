@@ -121,7 +121,8 @@ class VirtualCameraStreamer:
         y = 0
         for line in lines:
             if line.strip():  # Only draw non-empty lines
-                draw.text((0, y), line, fill='white', font=font)
+                #draw.text((0, y), line, fill='white', font=font)
+                draw.text((100, y + 6), line, fill='white', font=font)
             y += char_height
         
         # Convert to numpy array for OpenCV
