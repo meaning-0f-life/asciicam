@@ -1,11 +1,13 @@
 [project]
 name = "asciicam"
 version = "0.1.0"
-description = "Add your description here"
+description = "A live camera feed for your terminal with virtual camera streaming support"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "opencv-python>=4.12.0.88",
     "pyperclip>=1.9.0",
     "textual>=6.1.0",
+    "pyvirtualcam>=0.1.0",
+    "Pillow>=10.0.0",
 ]
